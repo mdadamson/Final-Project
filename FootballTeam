@@ -1,0 +1,11 @@
+import java.util.*;
+
+public class FootballTeam {
+    private Player[] team;
+
+    public FootballTeam() {
+        team = new Player[12];
+    }
+
+
+}
