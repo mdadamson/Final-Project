@@ -2,17 +2,21 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Player {
-    private String name, team, college;
-    private int  age;
+    private String name, team, college, position, role;
+    private int  age, jersey;
     private double weight, height;
 
-    public Player(String nick, String group, String uni, int old, double mass, double tall) {
+    public Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
+                  String part, int playNo) {
         name = nick;
         team = group;
         college = uni;
         age = old;
         weight = mass;
         height = tall;
+        position = pos;
+        role = part;
+        jersey = playNo;
     }
 
 
@@ -23,7 +27,10 @@ public class Player {
         description += "Team: " + team + "\n";
         description += "College: " + college + "\n";
         description += "Weight " + weight + "\n";
-        description += " Height: " + height + "\n";
+        description += "Height: " + height + "\n";
+        description += "Position: " + position + "\n";
+        description += "Role: " + role + "\n";
+        description += "Player No. : " + jersey + "\n";
 
         return description;
     }
