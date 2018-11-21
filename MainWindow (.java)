@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainWindow extends JPanel {
-    JButton btno, btnd, btns;
-    JLabel jlbl;
+    private JButton btno, btnd, btns;
+    private JLabel jlbl;
     private JPanel mainWin;
 
     public MainWindow() {
-        //setLayout(new FlowLayout());
-        //setPreferredSize(new Dimension(450, 300));
+        setLayout(new FlowLayout());
+        setPreferredSize(new Dimension(450, 300));
 
         btno = new JButton("Offense");
         btnd = new JButton("Defense");
@@ -42,15 +42,33 @@ public class MainWindow extends JPanel {
     public class buttonlistener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             Object source = event.getSource();
+            JFrame csFrame;
 
-            try {
-            if (source == btno)
-                Offense.main(null);
-            if (source == btnd)
-                Defense.main(null);
-            if (source == btns)
-                Specials.main(null);
-            } catch (IOException e) { e.printStackTrace(); }
+            if (source == btno) {
+                csFrame = new JFrame("Offense Players ");
+                csFrame.getContentPane().add(new Offense());
+                csFrame.setPreferredSize(new Dimension(450, 300));
+                csFrame.pack();
+                csFrame.setVisible(true);
+            }
+            if (source == btnd) {
+                csFrame = new JFrame("Defense Players ");
+                csFrame.getContentPane().add(new Defense());
+                csFrame.setPreferredSize(new Dimension(450, 300));
+                csFrame.pack();
+                csFrame.setVisible(true);
+            }
+            if (source == btns) {
+                csFrame = new JFrame("Defense Players ");
+                csFrame.getContentPane().add(new Specials());
+                csFrame.setPreferredSize(new Dimension(450, 300));
+                csFrame.pack();
+                csFrame.setVisible(true);
+            }
         }
     }
 }
+
+
+
+//This method creates the thing homepage that looks nice, but I haven't been able to get it to create new windows yet. 
