@@ -1,16 +1,54 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.LinkedList;
 
-public class Offense extends Container {
+public class Offense extends JPanel {
     private JPanel offenseWin;
+    private JButton confirm;
+    private JTextArea output;
+    private  JComboBox<String> choosePlayers;
 
-    public static void main(String[] args) throws IOException {
-        JFrame frame = new JFrame("Offensive Players");
-        frame.setContentPane(new Offense().offenseWin);
-        frame.setPreferredSize(new Dimension(450, 300));
-        frame.pack();
-        frame.setVisible(true);
+    Decision a = new Decision();
+    LinkedList<Player> offTeam = a.getList('1');
 
+
+    public Offense() {
+        int i = 0;
+
+        String[] name = new String[offTeam.size()];
+        for (Player k : offTeam) {
+            name[i] = k.firstName() + " " + k.lastName();
+            i++;
+        }
+        choosePlayers = new JComboBox<>(name);
+        confirm = new JButton("Confirm");
+        output = new JTextArea("some ouput");
+
+
+        buttonlistener listen = new buttonlistener();
+        confirm.addActionListener(listen);
+
+        add(choosePlayers);
+        add(confirm);
+        add(output);
     }
+
+    public class buttonlistener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            Object source = event.getSource();
+
+            if (source == confirm) {
+                for (Player k : offTeam) {
+                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem()))
+                        output.setText(k.toString());
+                }
+            }
+
+
+        }
+    }
+
 }
