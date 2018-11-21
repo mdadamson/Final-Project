@@ -5,7 +5,7 @@ Project Scope:
 
 4 total windows:
 - the Main, "Decision" window that welcomes the user and
-  asks them to choose which team they would like to view: Defense, Offense, or Special Teams
+  asks them to choose which group (Defense, Offense, Special Teams) they would like to view
 - the window for the defense, which only shows up if the button for "Defense" is chosen
   in the main window
 - the window for the offense... (same as #2)
@@ -13,11 +13,11 @@ Project Scope:
 
 *******************************************************************************************************
 1) The first (main) window welcomes the user, displays the title of the program and prompts them to
-   choose 1 of 3 buttons based on which team (defense, offense, special teams) they would like to
+   choose 1 of 3 buttons based on which group they would like to
    view the players of.
 
-2) After the user chooses which of the 3 teams he would like to see, the second window pops up
-   and the user is able to select players from that team (one selected at a time) from a combobox. 
+2) After the user chooses which of the 3 group they would like to see, the second window pops up
+   and the user is able to select players from that group (one selected at a time) from a combobox. 
 
 3) When the user chooses a player from the combobox, they then have to click on a button 
    confirming their selection.
@@ -28,6 +28,6 @@ Project Scope:
 5) the user can choose another player and click the confirm button again to see that player's
    info without having to exit out of and rerun the program (not sure how to do this)
 
-6) There is a second button on the team window, that allows the user to return to the original
-   window and select a different team, which causes the corresponding (second) team window to
+6) There is a second button on the group (second) window, that allows the user to return to the original
+   window and select a different group, which causes the corresponding (second) group window to
    pop up (not sure how to do this)
