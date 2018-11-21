@@ -3,8 +3,9 @@ import java.util.*;
 
 public class Player {
     private String name, team, college, position, role;
-    private int  age, jersey;
+    protected int  age, jersey;
     private double weight, height;
+    private String splitName[];
 
     public Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
                   String part, int playNo) {
@@ -17,6 +18,54 @@ public class Player {
         position = pos;
         role = part;
         jersey = playNo;
+    }
+
+    public String firstName() {
+        splitName = name.split("\\ ");
+        return splitName[0];
+    }
+
+    public String lastName() {
+        splitName = name.split("\\ ");
+        return splitName[1];
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public String getPos() {
+        return position;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public int getJersey() {
+        return jersey;
+    }
+
+
+    public int compareTo(Player o){
+        return Comparator.comparing(Player::firstName)
+                .thenComparing(Player::lastName)
+                .thenComparingInt(Player::getAge)
+                .compare(this, o);
+    }
+
+    public int compareAge(Player o){
+        return Math.abs(Comparator.comparing(Player::firstName)
+                .thenComparingInt(Player::getAge)
+                .compare(this, o)) + 1;
     }
 
 
