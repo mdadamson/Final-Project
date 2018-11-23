@@ -4,8 +4,58 @@ import java.io.*;
 import java.util.*;
 
 public class Decision {
+    private static LinkedList<Player>team;
+    public LinkedList<Player> getList(char ch) {
+        switch (ch) {
+            case '1': return removeNonOffense(team);
+            case '2': return removeNonDefense(team);
+            case '3': return removeNonSpecial(team);
+            default: return team;
+        }
+    }
 
-    private JPanel mainWin;
+
+    public static LinkedList<Player> removeNonSpecial(LinkedList<Player> A) {
+        LinkedList<Player> onlySpecials = new LinkedList<>();
+
+        if (A.size() < 2)
+            return A;
+
+        for(Player k: A) {
+            if (k.getRole().equals("Special Teams"))
+                onlySpecials.push(k);
+        }
+
+        return onlySpecials;
+    }
+
+    public static LinkedList<Player> removeNonOffense(LinkedList<Player> A) {
+        LinkedList<Player> onlyOffense = new LinkedList<>();
+
+        if (A.size() < 2)
+            return A;
+
+        for(Player k: A) {
+            if (k.getRole().equals("Offense"))
+                onlyOffense.push(k);
+        }
+
+        return onlyOffense;
+    }
+
+    public static LinkedList<Player> removeNonDefense(LinkedList<Player> A) {
+        LinkedList<Player> onlyDefense = new LinkedList<>();
+
+        if (A.size() < 2)
+            return A;
+
+        for(Player k: A) {
+            if (k.getRole().equals("Defense"))
+                onlyDefense.push(k);
+        }
+
+        return onlyDefense;
+    }
 
 
     public static void main(String[] args) throws IOException {
@@ -17,27 +67,29 @@ public class Decision {
 
         /* ***************************************************************************************************************************** */
 
-
         Scanner scan = new Scanner(new File("./src/ListOfPlayers"));
 
-        LinkedList<Player>team;
 
-        FootballTeam Seattle_Seahawks = new FootballTeam("Liverpool",5);
+        FootballTeam Seattle_Seahawks = new FootballTeam("Seattle Seahawks",5);
         team = Seattle_Seahawks.initPlayersassigner(scan);
 
-
+//        specTeam = removeNonSpecial(team);
+//        offTeam = removeNonOffense(team);
+//        defTeam = removeNonDefense(team);
 
 //        team.sort((Comparator.comparing(Player::firstName)            //  Sorts through list by name then age
 //                .thenComparingInt(Player::getAge)));
 //
 //        team.sort((Comparator.comparingInt(Player::getAge)            //  Sorts through list by age then name
 //                .thenComparing(Player::firstName)));
-
-        team.sort((Comparator.comparingInt(Player::getJersey)           //  Sorts through list by player no. then name
-                .thenComparing(Player::firstName)));
+//
+//        team.sort((Comparator.comparingInt(Player::getJersey)           //  Sorts through list by player no. then name
+//                .thenComparing(Player::firstName)));
 
         for (Player k: team)
             System.out.println(k.toString());
+
+
 
     }
 }
