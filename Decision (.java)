@@ -1,95 +1,98 @@
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.*;
+import javax.swing.*;
 
 public class Decision {
-    private static LinkedList<Player>team;
-    public LinkedList<Player> getList(char ch) {
-        switch (ch) {
-            case '1': return removeNonOffense(team);
-            case '2': return removeNonDefense(team);
-            case '3': return removeNonSpecial(team);
-            default: return team;
-        }
-    }
-
-
-    public static LinkedList<Player> removeNonSpecial(LinkedList<Player> A) {
-        LinkedList<Player> onlySpecials = new LinkedList<>();
-
-        if (A.size() < 2)
-            return A;
-
-        for(Player k: A) {
-            if (k.getRole().equals("Special Teams"))
-                onlySpecials.push(k);
-        }
-
-        return onlySpecials;
-    }
-
-    public static LinkedList<Player> removeNonOffense(LinkedList<Player> A) {
-        LinkedList<Player> onlyOffense = new LinkedList<>();
-
-        if (A.size() < 2)
-            return A;
-
-        for(Player k: A) {
-            if (k.getRole().equals("Offense"))
-                onlyOffense.push(k);
-        }
-
-        return onlyOffense;
-    }
-
-    public static LinkedList<Player> removeNonDefense(LinkedList<Player> A) {
-        LinkedList<Player> onlyDefense = new LinkedList<>();
-
-        if (A.size() < 2)
-            return A;
-
-        for(Player k: A) {
-            if (k.getRole().equals("Defense"))
-                onlyDefense.push(k);
-        }
-
-        return onlyDefense;
-    }
-
-
+	
     public static void main(String[] args) throws IOException {
-        JFrame csFrame = new JFrame("Choose an Option: ");
-        csFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        csFrame.getContentPane().add(new MainWindow());
-        csFrame.pack();
-        csFrame.setVisible(true);
+        JFrame Frame = new JFrame("Seattle Seahawks: Player Information");
+        Frame.setLayout(new BorderLayout());
+        Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Frame.getContentPane().add(new TopPanel(), BorderLayout.NORTH);
+        Frame.getContentPane().add(new BottomPanel(), BorderLayout.SOUTH);
+        Frame.pack();
+        Frame.setVisible(true);
+    }
+}
 
-        /* ***************************************************************************************************************************** */
+class TopPanel extends JPanel{
+	ImageIcon iconSH = new ImageIcon(this.getClass().getResource("seattle_seahawks.jpg"));
+	Image imgSH = iconSH.getImage();
+	Image newImgSh = imgSH.getScaledInstance(500, 350, java.awt.Image.SCALE_SMOOTH);
+	
+	public TopPanel() {
+		setLayout(new FlowLayout());
+		setBackground(Color.black);
+		JLabel background = new JLabel(new ImageIcon(newImgSh));
+		
+		add(background);
+	}
+}
 
-        Scanner scan = new Scanner(new File("./src/ListOfPlayers"));
+class BottomPanel extends JPanel{
+	JButton btno, btnd, btns;
+    JLabel jlbl;
+    
+	public BottomPanel() {
+		setLayout(new BorderLayout());
+		//setSize(350, 250);
+		
+		JPanel btmTopPanel = new JPanel();
+		btmTopPanel.setBackground(Color.black);
+		btmTopPanel.setLayout(new GridLayout(2, 2));
+		
+		JPanel btmBtmPanel = new JPanel();
+		btmBtmPanel.setBackground(Color.black);
+		btmBtmPanel.setLayout(new GridLayout(2, 5, 20, 20));
+		
+		btno = new JButton("Offense");
+        btnd = new JButton("Defense");
+        btns = new JButton("Special");
 
+        jlbl = new JLabel("Welcome to our site, choose an option below: ");
+        
+        add(btmTopPanel, BorderLayout.NORTH);
+        btmTopPanel.add(jlbl);
+        btmTopPanel.add(new JLabel(" "));
+        
+        /*ButtonGroup grOup = new ButtonGroup();
+        grOup.add(btno);
+        grOup.add(btnd);
+        grOup.add(btns);*/
 
-        FootballTeam Seattle_Seahawks = new FootballTeam("Seattle Seahawks",5);
-        team = Seattle_Seahawks.initPlayersassigner(scan);
+        buttonlistener listen = new buttonlistener();
+        btno.addActionListener(listen);
+        btnd.addActionListener(listen);
+        btns.addActionListener(listen);
+        
+        add(btmBtmPanel, BorderLayout.SOUTH);
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(btno);
+        btmBtmPanel.add(btnd);
+        btmBtmPanel.add(btns);
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        
+	}
+	
+	public class buttonlistener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            Object source = event.getSource();
 
-//        specTeam = removeNonSpecial(team);
-//        offTeam = removeNonOffense(team);
-//        defTeam = removeNonDefense(team);
-
-//        team.sort((Comparator.comparing(Player::firstName)            //  Sorts through list by name then age
-//                .thenComparingInt(Player::getAge)));
-//
-//        team.sort((Comparator.comparingInt(Player::getAge)            //  Sorts through list by age then name
-//                .thenComparing(Player::firstName)));
-//
-//        team.sort((Comparator.comparingInt(Player::getJersey)           //  Sorts through list by player no. then name
-//                .thenComparing(Player::firstName)));
-
-        for (Player k: team)
-            System.out.println(k.toString());
-
-
-
+            try {
+            if (source == btno)
+                Offense.main(null);
+            if (source == btnd)
+                Defense.main(null);
+            if (source == btns)
+                Specials.main(null);
+            } catch (IOException e) { e.printStackTrace(); }
+        }
     }
 }
