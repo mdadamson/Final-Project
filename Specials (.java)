@@ -2,15 +2,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class Specials extends Container {
-    private JPanel specialsWin;
+public class Specials {
 
     public static void main(String[] args) throws IOException {
-        JFrame frame = new JFrame("Special Players");
-        frame.setContentPane(new Specials().specialsWin);
-        frame.setPreferredSize(new Dimension(450, 300));
+    	JFrame frame = new JFrame("Special Teams Players");
+        frame.setContentPane(new Specials_Panel());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(650, 500));
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }
+}
+
+class Specials_Panel extends JPanel{
+	
+	public Specials_Panel() {
+		//setSize(400, 250);
+		setLayout(new BorderLayout());
+		
+		
+	}
 }
