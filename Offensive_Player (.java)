@@ -1,8 +1,37 @@
-public class Offensive_Player extends Player{
 
-	public Offensive_Player(String nick, String group, String uni, int old, double mass, double tall) {
-		super(nick, group, uni, old, mass, tall, uni, uni, old);
+public class Offensive_Player extends Player{
+	private String name, team, college, position, role;
+    protected int  age, jersey, ydsRush, ydsRec, ydsPass;
+    private double weight, height;
+    private String splitName[];
+
+	public Offensive_Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
+            String part, int playNo, int rushyds, int recyds, int passyds) {
+		super(nick, group, uni, old, mass, tall, pos, part, playNo);
 		
+		name = nick;
+        team = group;
+        college = uni;
+        age = old;
+        weight = mass;
+        height = tall;
+        position = pos;
+        role = part;
+        jersey = playNo;
+        ydsRush = rushyds;
+        ydsRec = recyds;
+        ydsPass = passyds;
+	}
+	
+	public int getRushYards() {
+		return ydsRush;
 	}
 
+	public int getRecYards() {
+		return ydsRec;
+	}
+	
+	public int getPassYards() {
+		return ydsPass;
+	}
 }
