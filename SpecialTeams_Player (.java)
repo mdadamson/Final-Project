@@ -1,10 +1,27 @@
 
 public class SpecialTeams_Player extends Player{
-
+	private String name, team, college, position, role;
+    protected int  age, jersey, points;
+    private double weight, height;
+    private String splitName[];
+	
 	public SpecialTeams_Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
-			String part, int playNo) {
+            String part, int playNo, int ptsScored) {
 		super(nick, group, uni, old, mass, tall, pos, part, playNo);
 		
+		name = nick;
+        team = group;
+        college = uni;
+        age = old;
+        weight = mass;
+        height = tall;
+        position = pos;
+        role = part;
+        jersey = playNo;
+        points = ptsScored;
 	}
-
+	
+	public int getPtsScored() {
+		return points;
+	}
 }
