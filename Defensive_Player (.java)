@@ -1,10 +1,33 @@
-// I'm still working on this and the other "_Player" classes
 
 public class Defensive_Player extends Player{
+	private String name, team, college, position, role;
+    protected int  age, jersey, Tackles, picks;
+    private double weight, height;
+    private String splitName[];
 
-	public Defensive_Player(String nick, String group, String uni, int old, double mass, double tall) {
-		super(nick, group, uni, old, mass, tall, uni, uni, old);
+	public Defensive_Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
+            String part, int playNo, int tackles, int interceptions) {
+		super(nick, group, uni, old, mass, tall, pos, part, playNo);
+		
+		name = nick;
+        team = group;
+        college = uni;
+        age = old;
+        weight = mass;
+        height = tall;
+        position = pos;
+        role = part;
+        jersey = playNo;
+        Tackles = tackles;
+        picks = interceptions;
 		
 	}
-
+	
+	public int getRecordedTackles() {
+		return Tackles;
+	}
+	
+	public int getInterceptions() {
+		return picks;
+	}
 }
