@@ -1,24 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
 
-public class Defense extends JPanel {
-    private JPanel defenseWin;
+public class Defense {
 
-    public Defense() {
-        int i = 0;
-        Decision a = new Decision();
-        LinkedList<Player> defTeam = a.getList('2');
-        String[] name = new String[defTeam.size()];
-
-        for (Player k : defTeam) {
-            name[i] = k.firstName() + " " + k.lastName();
-            i++;
-        }
-        JComboBox<String> choosePlayers = new JComboBox<>(name);
-
-        add(choosePlayers);
+    public static void main(String[] args) throws IOException {
+        JFrame frame = new JFrame("Defensive Players");
+        frame.setContentPane(new Defensive_Panel());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(650, 500));
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
 
     }
+}
+
+class Defensive_Panel extends JPanel{
+	
+	public Defensive_Panel() {
+		setLayout(new BorderLayout());
+		
+		
+	}
 }
