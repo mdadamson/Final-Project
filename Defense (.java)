@@ -1,24 +1,70 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.*;
+import java.util.LinkedList;
 
-public class Defense extends JPanel {
+public class Defense {
+
+    public static void main(String[] args) throws IOException {
+        JFrame frame = new JFrame("Defensive Players");
+        frame.setContentPane(new Defensive_Panel());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(500, 250));
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+    }
+}
+
+class Defensive_Panel extends JPanel {
     private JPanel defenseWin;
+    private JButton confirm;
+    private JTextArea output;
+    private JComboBox<String> choosePlayers;
 
-    public Defense() {
+    Decision a = new Decision();
+    LinkedList<Player> defTeam = a.getList('2');
+
+    public Defensive_Panel() {
+//        setSize(400, 250);
+//        setLayout(new BorderLayout());
         int i = 0;
-        Decision a = new Decision();
-        LinkedList<Player> defTeam = a.getList('2');
-        String[] name = new String[defTeam.size()];
 
+        String[] name = new String[defTeam.size()];
         for (Player k : defTeam) {
             name[i] = k.firstName() + " " + k.lastName();
             i++;
         }
-        JComboBox<String> choosePlayers = new JComboBox<>(name);
+        choosePlayers = new JComboBox<>(name);
+        confirm = new JButton("Confirm");
+        output = new JTextArea(" ");
+
+
+       buttonlistener listen = new buttonlistener();
+        confirm.addActionListener(listen);
 
         add(choosePlayers);
+        add(confirm);
+        add(output);
+    }
 
+    public class buttonlistener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            Object source = event.getSource();
+
+            if (source == confirm) {
+                for (Player k : defTeam) {
+                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem()))
+                        output.setText(k.toString());
+                }
+            }
+
+
+        }
     }
 }
+
+
