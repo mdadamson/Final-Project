@@ -1,27 +1,68 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Specials {
+	
+	static JFrame sFrame = new JFrame("Special Teams Players");
 
     public static void main(String[] args) throws IOException {
-    	JFrame frame = new JFrame("Special Teams Players");
-        frame.setContentPane(new Specials_Panel());
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(650, 500));
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-
+    	sFrame.setContentPane(new Specials_Panel());
+        sFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        sFrame.setPreferredSize(new Dimension(500, 250));
+        sFrame.pack();
+        sFrame.setResizable(false);
+        sFrame.setVisible(true);
     }
 }
 
 class Specials_Panel extends JPanel{
-	
-	public Specials_Panel() {
-		//setSize(400, 250);
-		setLayout(new BorderLayout());
-		
-		
-	}
+    private JPanel specialsWin;
+    private JButton confirm;
+    private JTextArea output;
+    private JComboBox<String> choosePlayers;
+
+    Decision a = new Decision();
+    LinkedList<Player> specTeam = a.getList('3');
+
+    public Specials_Panel() {
+        //setSize(400, 250);
+        int i = 0;
+
+        String[] name = new String[specTeam.size()];
+        for (Player k : specTeam) {
+            name[i] = k.firstName() + " " + k.lastName();
+            i++;
+        }
+        choosePlayers = new JComboBox<>(name);
+        confirm = new JButton("Confirm");
+        output = new JTextArea(" ");
+
+
+        buttonlistener listen = new buttonlistener();
+        confirm.addActionListener(listen);
+
+        add(choosePlayers);
+        add(confirm);
+        add(output);
+    }
+
+    public class buttonlistener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            Object source = event.getSource();
+
+            if (source == confirm) {
+                for (Player k : specTeam) {
+                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem()))
+                        output.setText(k.toString());
+                }
+            }
+
+
+        }
+    }
 }
