@@ -3,19 +3,34 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.*;
 
-public class Offense extends JPanel {
+public class Offense {
+
+    public static void main(String[] args) throws IOException {
+        JFrame frame = new JFrame("Offensive Players");
+        frame.setContentPane(new Offensive_Panel());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(500, 250));
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
+
+    }
+}
+
+class Offensive_Panel extends JPanel {
     private JPanel offenseWin;
     private JButton confirm;
     private JTextArea output;
-    private  JComboBox<String> choosePlayers;
+    private JComboBox<String> choosePlayers;
 
     Decision a = new Decision();
     LinkedList<Player> offTeam = a.getList('1');
 
-
-    public Offense() {
+    public Offensive_Panel() {
+//        setSize(400, 250);
+//        setLayout(new BorderLayout());
         int i = 0;
 
         String[] name = new String[offTeam.size()];
@@ -25,7 +40,7 @@ public class Offense extends JPanel {
         }
         choosePlayers = new JComboBox<>(name);
         confirm = new JButton("Confirm");
-        output = new JTextArea("some ouput");
+        output = new JTextArea(" ");
 
 
         buttonlistener listen = new buttonlistener();
@@ -50,5 +65,4 @@ public class Offense extends JPanel {
 
         }
     }
-
 }
