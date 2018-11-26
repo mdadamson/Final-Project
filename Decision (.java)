@@ -2,10 +2,69 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 import javax.swing.*;
 
 public class Decision {
 	
+    private static LinkedList<Player> team;
+    
+    public LinkedList<Player> getList(char ch) {
+        switch (ch) {
+            case '1': return removeNonOffense(team);
+            case '2': return removeNonDefense(team);
+            case '3': return removeNonSpecial(team);
+            default: return team;
+        }
+    }
+
+
+    public static LinkedList<Player> removeNonSpecial(LinkedList<Player> A) {
+        LinkedList<Player> onlySpecials = new LinkedList<>();
+
+        if (A.size() < 2)
+            return A;
+
+        for(Player k: A) {
+            if (k.getRole().equals("Special Teams"))
+                onlySpecials.push(k);
+        }
+
+        return onlySpecials;
+    }
+
+    public static LinkedList<Player> removeNonOffense(LinkedList<Player> A) {
+        LinkedList<Player> onlyOffense = new LinkedList<>();
+
+        if (A.size() < 2)
+            return A;
+
+        for(Player k: A) {
+            if (k.getRole().equals("Offense"))
+                onlyOffense.push(k);
+        }
+
+        return onlyOffense;
+    }
+
+    public static LinkedList<Player> removeNonDefense(LinkedList<Player> A) {
+        LinkedList<Player> onlyDefense = new LinkedList<>();
+
+        if (A.size() < 2)
+            return A;
+
+        for(Player k: A) {
+            if (k.getRole().equals("Defense"))
+                onlyDefense.push(k);
+        }
+
+        return onlyDefense;
+    }
+
+
+
+
     public static void main(String[] args) throws IOException {
         JFrame Frame = new JFrame("Seattle Seahawks: Player Information");
         Frame.setLayout(new BorderLayout());
@@ -14,59 +73,63 @@ public class Decision {
         Frame.getContentPane().add(new BottomPanel(), BorderLayout.SOUTH);
         Frame.pack();
         Frame.setVisible(true);
+        Frame.setResizable(false);
+
+        Scanner scan = new Scanner(new File("./src/ListOfPlayers"));
+
+
+        FootballTeam Seattle_Seahawks = new FootballTeam("Seattle Seahawks",5);
+        team = Seattle_Seahawks.initPlayersassigner(scan);
     }
 }
 
 class TopPanel extends JPanel{
-	ImageIcon iconSH = new ImageIcon(this.getClass().getResource("seattle_seahawks.jpg"));
-	Image imgSH = iconSH.getImage();
-	Image newImgSh = imgSH.getScaledInstance(500, 350, java.awt.Image.SCALE_SMOOTH);
-	
-	public TopPanel() {
-		setLayout(new FlowLayout());
-		setBackground(Color.black);
-		JLabel background = new JLabel(new ImageIcon(newImgSh));
-		
-		add(background);
-	}
+    ImageIcon iconSH = new ImageIcon(this.getClass().getResource("seattle_seahawks.jpg"));
+    Image imgSH = iconSH.getImage();
+    Image newImgSh = imgSH.getScaledInstance(500, 350, java.awt.Image.SCALE_SMOOTH);
+
+    public TopPanel() {
+        setLayout(new FlowLayout());
+        setBackground(Color.black);
+        JLabel background = new JLabel(new ImageIcon(newImgSh));
+
+        add(background);
+    }
 }
 
 class BottomPanel extends JPanel{
-	JButton btno, btnd, btns;
+    JButton btno, btnd, btns, reset;
     JLabel jlbl;
-    
-	public BottomPanel() {
-		setLayout(new BorderLayout());
-		//setSize(350, 250);
-		
-		JPanel btmTopPanel = new JPanel();
-		btmTopPanel.setBackground(Color.black);
-		btmTopPanel.setLayout(new GridLayout(2, 2));
-		
-		JPanel btmBtmPanel = new JPanel();
-		btmBtmPanel.setBackground(Color.black);
-		btmBtmPanel.setLayout(new GridLayout(2, 5, 20, 20));
-		
-		btno = new JButton("Offense");
+
+    public BottomPanel() {
+        setLayout(new BorderLayout());
+        setSize(350, 250);
+
+        JPanel btmTopPanel = new JPanel();
+        btmTopPanel.setBackground(Color.black);
+        btmTopPanel.setLayout(new GridLayout(2, 2));
+
+        JPanel btmBtmPanel = new JPanel();
+        btmBtmPanel.setBackground(Color.black);
+        btmBtmPanel.setLayout(new GridLayout(3, 5, 20, 20));
+
+        btno = new JButton("Offense");
         btnd = new JButton("Defense");
         btns = new JButton("Special");
+        reset = new JButton("Reset");
 
         jlbl = new JLabel("Welcome to our site, choose an option below: ");
-        
+
         add(btmTopPanel, BorderLayout.NORTH);
         btmTopPanel.add(jlbl);
         btmTopPanel.add(new JLabel(" "));
-        
-        /*ButtonGroup grOup = new ButtonGroup();
-        grOup.add(btno);
-        grOup.add(btnd);
-        grOup.add(btns);*/
 
         buttonlistener listen = new buttonlistener();
         btno.addActionListener(listen);
         btnd.addActionListener(listen);
         btns.addActionListener(listen);
-        
+        reset.addActionListener(listen);
+
         add(btmBtmPanel, BorderLayout.SOUTH);
         btmBtmPanel.add(new JLabel(" "));
         btmBtmPanel.add(btno);
@@ -75,23 +138,44 @@ class BottomPanel extends JPanel{
         btmBtmPanel.add(new JLabel(" "));
         btmBtmPanel.add(new JLabel(" "));
         btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(reset);
         btmBtmPanel.add(new JLabel(" "));
         btmBtmPanel.add(new JLabel(" "));
         btmBtmPanel.add(new JLabel(" "));
-        
-	}
-	
-	public class buttonlistener implements ActionListener {
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+        btmBtmPanel.add(new JLabel(" "));
+    }
+
+    public class buttonlistener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             Object source = event.getSource();
 
             try {
-            if (source == btno)
-                Offense.main(null);
-            if (source == btnd)
-                Defense.main(null);
-            if (source == btns)
-                Specials.main(null);
+                if (source == btno) {
+                    Offense.main(null);
+                	Offense.oFrame.setVisible(true);
+                	Defense.dFrame.setVisible(false);
+                	Specials.sFrame.setVisible(false);
+                }
+                if (source == btnd) {
+                    Defense.main(null);
+	                Offense.oFrame.setVisible(false);
+	            	Defense.dFrame.setVisible(true);
+	            	Specials.sFrame.setVisible(false);
+                }
+                if (source == btns) {
+                    Specials.main(null);
+	                Offense.oFrame.setVisible(false);
+	            	Defense.dFrame.setVisible(false);
+	            	Specials.sFrame.setVisible(true);
+                }
+                if (source == reset) {
+                	Offense.oFrame.dispose();
+                	Defense.dFrame.dispose();
+                	Specials.sFrame.dispose();
+                }
             } catch (IOException e) { e.printStackTrace(); }
         }
     }
