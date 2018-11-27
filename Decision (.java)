@@ -99,7 +99,7 @@ class TopPanel extends JPanel{
 
 class BottomPanel extends JPanel{
     JButton btno, btnd, btns, reset;
-    JLabel jlbl;
+    JLabel jlbl, jlbl2;
 
     public BottomPanel() {
         setLayout(new BorderLayout());
@@ -107,7 +107,7 @@ class BottomPanel extends JPanel{
 
         JPanel btmTopPanel = new JPanel();
         btmTopPanel.setBackground(Color.black);
-        btmTopPanel.setLayout(new GridLayout(2, 2));
+        btmTopPanel.setLayout(new GridLayout(3, 1));
 
         JPanel btmBtmPanel = new JPanel();
         btmBtmPanel.setBackground(Color.black);
@@ -117,11 +117,22 @@ class BottomPanel extends JPanel{
         btnd = new JButton("Defense");
         btns = new JButton("Special");
         reset = new JButton("Reset");
+        
+        Font myFont = new Font("Times", Font.BOLD, 20);
 
-        jlbl = new JLabel("Welcome to our site, choose an option below: ");
+        jlbl = new JLabel("Welcome to the Seattle Seahawks Player Information Portal.");
+        jlbl.setHorizontalAlignment(SwingConstants.CENTER);
+        jlbl.setFont(myFont);
+        jlbl.setForeground(Color.white);
+        
+        jlbl2 = new JLabel("Please choose a player group to view from the options below:");
+        jlbl2.setHorizontalAlignment(SwingConstants.CENTER);
+        jlbl2.setFont(myFont);
+        jlbl2.setForeground(Color.white);
 
         add(btmTopPanel, BorderLayout.NORTH);
         btmTopPanel.add(jlbl);
+        btmTopPanel.add(jlbl2);
         btmTopPanel.add(new JLabel(" "));
 
         buttonlistener listen = new buttonlistener();
