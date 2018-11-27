@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 public class Specials {
-	
-	static JFrame sFrame = new JFrame("Special Teams Players");
+
+    static JFrame sFrame = new JFrame("Special Teams Players");
 
     public static void main(String[] args) throws IOException {
-    	sFrame.setContentPane(new Specials_Panel());
+        sFrame.setContentPane(new Specials_Panel());
         sFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         sFrame.setPreferredSize(new Dimension(500, 250));
         sFrame.pack();
-        sFrame.setResizable(false);
+        sFrame.setResizable(true);
         sFrame.setVisible(true);
     }
 }
@@ -25,6 +25,9 @@ class Specials_Panel extends JPanel{
     private JButton confirm;
     private JTextArea output;
     private JComboBox<String> choosePlayers;
+    ImageIcon image = new ImageIcon("./src/PlayerPhotos/Malik Turner.png");
+    JLabel label = new JLabel("", image, JLabel.CENTER);
+    JPanel panel = new JPanel(new BorderLayout());
 
     Decision a = new Decision();
     LinkedList<Player> specTeam = a.getList('3');
@@ -49,20 +52,27 @@ class Specials_Panel extends JPanel{
         add(choosePlayers);
         add(confirm);
         add(output);
+        panel.add(label, BorderLayout.CENTER);
+        add(label);
+
     }
 
     public class buttonlistener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             Object source = event.getSource();
-
             if (source == confirm) {
+
                 for (Player k : specTeam) {
-                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem()))
+                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem())) {
                         output.setText(k.toString());
+                        image = new ImageIcon("./src/PlayerPhotos/" + k.firstName() + " " + k.lastName() + ".png");
+                        label.setIcon(image);
+                    }
                 }
             }
-
-
         }
     }
+
+
+
 }
