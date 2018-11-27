@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 public class Defense {
-	
-	static JFrame dFrame = new JFrame("Defensive Players");
-	
+
+    static JFrame dFrame = new JFrame("Defensive Players");
+
     public static void main(String[] args) throws IOException {
-    	dFrame.setContentPane(new Defensive_Panel());
+        dFrame.setContentPane(new Defensive_Panel());
         dFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         dFrame.setPreferredSize(new Dimension(500, 250));
         dFrame.pack();
-        dFrame.setResizable(false);
+        dFrame.setResizable(true);
         dFrame.setVisible(true);
     }
 }
@@ -25,6 +25,9 @@ class Defensive_Panel extends JPanel {
     private JButton confirm;
     private JTextArea output;
     private JComboBox<String> choosePlayers;
+    ImageIcon image = new ImageIcon("./src/PlayerPhotos/Malik Turner.png");
+    JLabel label = new JLabel("", image, JLabel.CENTER);
+    JPanel panel = new JPanel(new BorderLayout());
 
     Decision a = new Decision();
     LinkedList<Player> defTeam = a.getList('2');
@@ -44,12 +47,14 @@ class Defensive_Panel extends JPanel {
         output = new JTextArea(" ");
 
 
-       buttonlistener listen = new buttonlistener();
+        buttonlistener listen = new buttonlistener();
         confirm.addActionListener(listen);
 
         add(choosePlayers);
         add(confirm);
         add(output);
+        panel.add(label, BorderLayout.CENTER);
+        add(label);
     }
 
     public class buttonlistener implements ActionListener {
@@ -58,8 +63,11 @@ class Defensive_Panel extends JPanel {
 
             if (source == confirm) {
                 for (Player k : defTeam) {
-                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem()))
+                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem())) {
                         output.setText(k.toString());
+                        image = new ImageIcon("./src/PlayerPhotos/" + k.firstName() + " " + k.lastName() + ".png");
+                        label.setIcon(image);
+                    }
                 }
             }
 
