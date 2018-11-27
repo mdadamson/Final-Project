@@ -118,7 +118,7 @@ class BottomPanel extends JPanel{
         btns = new JButton("Special");
         reset = new JButton("Reset");
         
-        Font myFont = new Font("Times", Font.BOLD, 20);
+        Font myFont = new Font("Times", Font.BOLD, 16);
 
         jlbl = new JLabel("Welcome to the Seattle Seahawks Player Information Portal.");
         jlbl.setHorizontalAlignment(SwingConstants.CENTER);
