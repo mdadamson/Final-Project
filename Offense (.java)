@@ -8,14 +8,14 @@ import java.util.*;
 
 public class Offense {
 
-	static JFrame oFrame = new JFrame("Offensive Players");
-	
+    static JFrame oFrame = new JFrame("Offensive Players");
+
     public static void main(String[] args) throws IOException {
         oFrame.setContentPane(new Offensive_Panel());
         oFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         oFrame.setPreferredSize(new Dimension(500, 250));
         oFrame.pack();
-        oFrame.setResizable(false);
+        oFrame.setResizable(true);
         oFrame.setVisible(true);
     }
 }
@@ -24,6 +24,9 @@ class Offensive_Panel extends JPanel {
     private JButton confirm;
     private JTextArea output;
     private JComboBox<String> choosePlayers;
+    ImageIcon image = new ImageIcon("./src/PlayerPhotos/Malik Turner.png");
+    JLabel label = new JLabel("", image, JLabel.CENTER);
+    JPanel panel = new JPanel(new BorderLayout());
 
     Decision a = new Decision();
     LinkedList<Player> offTeam = a.getList('1');
@@ -49,6 +52,8 @@ class Offensive_Panel extends JPanel {
         add(choosePlayers);
         add(confirm);
         add(output);
+        panel.add(label, BorderLayout.CENTER);
+        add(label);
     }
 
     public class buttonlistener implements ActionListener {
@@ -57,8 +62,11 @@ class Offensive_Panel extends JPanel {
 
             if (source == confirm) {
                 for (Player k : offTeam) {
-                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem()))
+                    if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem())) {
                         output.setText(k.toString());
+                        image = new ImageIcon("./src/PlayerPhotos/" + k.firstName() + " " + k.lastName() + ".png");
+                        label.setIcon(image);
+                    }
                 }
             }
 
