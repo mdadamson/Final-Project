@@ -1,8 +1,8 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -11,68 +11,122 @@ public class Specials {
     static JFrame sFrame = new JFrame("Special Teams Players");
 
     public static void main(String[] args) throws IOException {
-        sFrame.setContentPane(new Specials_Panel());
-        sFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        sFrame.setPreferredSize(new Dimension(500, 250));
+    	sFrame.setContentPane(new Specials_Panel());
+        sFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        sFrame.setPreferredSize(new Dimension(640, 512));
         sFrame.pack();
-        sFrame.setResizable(true);
+        sFrame.setResizable(false);
         sFrame.setVisible(true);
     }
 }
 
+@SuppressWarnings("serial")
 class Specials_Panel extends JPanel{
-    private JPanel specialsWin;
-    private JButton confirm;
-    private JTextArea output;
+    private JButton clear;
     private JComboBox<String> choosePlayers;
     ImageIcon image = new ImageIcon("./src/PlayerPhotos/Malik Turner.png");
-    JLabel label = new JLabel("", image, JLabel.CENTER);
-    JPanel panel = new JPanel(new BorderLayout());
-
+    JPanel N = new JPanel(new GridLayout(3, 3));
+    JPanel S = new JPanel(new BorderLayout());
+    JPanel S1 = new JPanel(new GridLayout(1, 2, 25, 25)); 
+    JTextArea SE;
+    JLabel SW = new JLabel("", image, JLabel.CENTER);
+    JLabel background = new JLabel(new ImageIcon("./src/seahawks2.jpg"));
     Decision a = new Decision();
-    LinkedList<Player> specTeam = a.getList('3');
+    LinkedList<SpecialTeams_Player> specTeam = a.getSpecList();
+    Font myFont = new Font("Times", Font.BOLD, 16);
+    Font myFont2 = new Font("Times", Font.BOLD, 22);
+    JLabel specials = new JLabel("SPECIAL TEAMS", JLabel.CENTER);
 
-    public Specials_Panel() {
-        //setSize(400, 250);
+    public Specials_Panel() throws IOException{
+    	Border newBorder = BorderFactory.createLineBorder(new Color(0, 0, 0, 0), 35);
+    	setLayout(new BorderLayout());
+    	setVisible(true);
         int i = 0;
 
         String[] name = new String[specTeam.size()];
-        for (Player k : specTeam) {
+        
+        for (SpecialTeams_Player k : specTeam) {
             name[i] = k.firstName() + " " + k.lastName();
             i++;
         }
+        
         choosePlayers = new JComboBox<>(name);
-        confirm = new JButton("Confirm");
-        output = new JTextArea(" ");
-
+        choosePlayers.setSelectedItem(null);
+        choosePlayers.setFont(myFont);
+        clear = new JButton("Clear");
+        SE = new JTextArea(" ");
+        SE.setVisible(false);
+        SW.setVisible(false);
+        
+        clear.setFont(myFont);
+        clear.setEnabled(false);
 
         buttonlistener listen = new buttonlistener();
-        confirm.addActionListener(listen);
+        clear.addActionListener(listen);
+        choosePlayers.addActionListener(listen);
+        
+        N.setBackground(new Color(0, 0, 0, 0));
+        S.setBackground(new Color(0, 0, 0, 0));
+        S1.setBackground(new Color(0, 0, 0, 0));
+        SE.setBackground(new Color(0, 76, 153));
+        
+        SE.setFont(myFont);
+        SE.setForeground(Color.black);
+        
+        background.setLayout(new BorderLayout());
+    	background.setVisible(true);
+    	background.setSize(640, 512);
+    	background.setBorder(newBorder);
+    	
+    	specials.setFont(myFont2);
+    	specials.setForeground(Color.cyan);
 
-        add(choosePlayers);
-        add(confirm);
-        add(output);
-        panel.add(label, BorderLayout.CENTER);
-        add(label);
-
+    	N.add(new JLabel());
+    	N.add(specials);
+    	N.add(new JLabel());
+        N.add(choosePlayers);
+        N.add(new JLabel());
+        N.add(clear);
+        N.add(new JLabel());
+        N.add(new JLabel());
+        N.add(new JLabel());
+        
+        S1.add(SW, BorderLayout.WEST);
+        S1.add(SE, BorderLayout.EAST);
+        
+        S.add(S1, BorderLayout.CENTER);
+        
+        background.add(N, BorderLayout.NORTH);
+        background.add(S, BorderLayout.SOUTH);
+        
+        add(background);
     }
-
+    
     public class buttonlistener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             Object source = event.getSource();
-            if (source == confirm) {
+            if (source == choosePlayers) {
 
-                for (Player k : specTeam) {
+                for (SpecialTeams_Player k : specTeam) {
                     if ((k.firstName() + " " + k.lastName()).equals(choosePlayers.getSelectedItem())) {
-                        output.setText(k.toString());
+                        SE.setText(k.to_String());
                         image = new ImageIcon("./src/PlayerPhotos/" + k.firstName() + " " + k.lastName() + ".png");
-                        label.setIcon(image);
+                        SW.setIcon(image);
+                        clear.setEnabled(true);
+                        SE.setVisible(true);
+                        SW.setVisible(true);
                     }
                 }
             }
+            else if(source == clear) {
+            	image = new ImageIcon("./src/PlayerPhotos/Malik Turner.png");
+            	SE.setText(" ");
+            	SW.setIcon(image);
+            	SE.setVisible(false);
+            	clear.setEnabled(false);
+            	SW.setVisible(false);
+            	choosePlayers.setSelectedItem(null);
+            }
         }
     }
-
-
-
 }
