@@ -1,5 +1,5 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -8,47 +8,129 @@ public class FootballTeam {
     String teamName;
     int noPlayers;
 
-    public FootballTeam(String _teamName, int _noPlayers) {
+    public FootballTeam(String _teamName) {
         teamName = _teamName;
-        noPlayers = _noPlayers;
+        //noPlayers = _noPlayers;
     }
 
-    public LinkedList<Player> initPlayersassigner(Scanner sc) throws IOException {
-        String name, college, group, block, position, role,split[];
-        Player currentPlayer;
-        LinkedList<Player> holder = new LinkedList<Player>();
-        int age, jersey;
+    public LinkedList<Offensive_Player>  initOFFPlayersassigner() throws IOException {
+    	Scanner scan = new Scanner(new File("./src/ListOfPlayers.txt"));
+        String name, college, group, block, position, role, split[];
+        Offensive_Player currentPlayer;
+        LinkedList<Offensive_Player> holder1 = new LinkedList<Offensive_Player>();
+        int age, jersey, touchdowns, ydsRushRec, ydsPass, lines = 0;
         double height, weight;
 
-        BufferedReader reader = new BufferedReader(new FileReader("./src/ListOfPlayers"));
-        int lines = 0;
+        BufferedReader reader = new BufferedReader(new FileReader("./src/ListOfPlayers.txt"));
+        
         while (reader.readLine() != null) lines++;
         reader.close();
-
-
+        
         for (int i=0; i <lines; i++) {
-            block = sc.nextLine();
+            block = scan.nextLine();
             split = block.split("\\/");
-            name = split[0];
-            group = split[1];
-            college = split[2];
-            age = Integer.parseInt(split[3]);
-            weight = Double.parseDouble(split[4]);
-            height = Double.parseDouble(split[5]);
-            position = split[6];
-            role = split[7];
-            jersey = Integer.parseInt(split[8]);
-
-
-
-
-            currentPlayer = new Player(name, group, college, age, weight, height, position, role, jersey);
-
-            holder.push(currentPlayer);
+            
+            if(split.length == 12) {
+            	name = split[0];
+                group = split[1];
+                college = split[2];
+                age = Integer.parseInt(split[3]);
+                weight = Double.parseDouble(split[4]);
+                height = Double.parseDouble(split[5]);
+                position = split[6];
+                role = split[7];
+                jersey = Integer.parseInt(split[8]);
+            	touchdowns = Integer.parseInt(split[9]);
+            	ydsRushRec = Integer.parseInt(split[10]);
+            	ydsPass = Integer.parseInt(split[11]);
+            	currentPlayer = new Offensive_Player(name, group, college, age, weight, height, position, role, jersey, touchdowns, ydsRushRec, ydsPass);
+            	
+            	holder1.push(currentPlayer);
+            }
         }
-
-        return holder;
-
-
+        
+        scan.close();
+        
+        return holder1;
     }
+
+	public LinkedList<Defensive_Player> initDEFPlayersassigner() throws IOException {
+		Scanner scan = new Scanner(new File("./src/ListOfPlayers.txt"));
+        String name, college, group, block, position, role, split[];
+        Defensive_Player currentPlayer;
+        LinkedList<Defensive_Player> holder1 = new LinkedList<Defensive_Player>();
+        int age, jersey, tackles, interceptions, lines = 0;
+        double height, weight;
+
+        BufferedReader reader = new BufferedReader(new FileReader("./src/ListOfPlayers.txt"));
+        
+        while (reader.readLine() != null) lines++;
+        reader.close();
+        
+        for (int i=0; i <lines; i++) {
+            block = scan.nextLine();
+            split = block.split("\\/");
+            
+            if(split.length == 11) {
+            	name = split[0];
+                group = split[1];
+                college = split[2];
+                age = Integer.parseInt(split[3]);
+                weight = Double.parseDouble(split[4]);
+                height = Double.parseDouble(split[5]);
+                position = split[6];
+                role = split[7];
+                jersey = Integer.parseInt(split[8]);
+            	tackles = Integer.parseInt(split[9]);
+            	interceptions = Integer.parseInt(split[10]);
+            	currentPlayer = new Defensive_Player(name, group, college, age, weight, height, position, role, jersey, tackles, interceptions);
+            	
+            	holder1.push(currentPlayer);
+            }
+        }
+        
+        scan.close();
+        
+        return holder1;
+	}
+	
+	
+	public LinkedList<SpecialTeams_Player> initSPECPlayersassigner() throws IOException {
+		Scanner scan = new Scanner(new File("./src/ListOfPlayers.txt"));
+        String name, college, group, block, position, role, split[];
+        SpecialTeams_Player currentPlayer;
+        LinkedList<SpecialTeams_Player> holder1 = new LinkedList<SpecialTeams_Player>();
+        int age, jersey, fGoals, lines = 0;
+        double height, weight;
+
+        BufferedReader reader = new BufferedReader(new FileReader("./src/ListOfPlayers.txt"));
+        
+        while (reader.readLine() != null) lines++;
+        reader.close();
+        
+        for (int i=0; i <lines; i++) {
+            block = scan.nextLine();
+            split = block.split("\\/");
+            
+            if(split.length == 10) {
+            	name = split[0];
+                group = split[1];
+                college = split[2];
+                age = Integer.parseInt(split[3]);
+                weight = Double.parseDouble(split[4]);
+                height = Double.parseDouble(split[5]);
+                position = split[6];
+                role = split[7];
+                jersey = Integer.parseInt(split[8]);
+            	fGoals = Integer.parseInt(split[9]);
+            	currentPlayer = new SpecialTeams_Player(name, group, college, age, weight, height, position, role, jersey, fGoals);
+            	
+            	holder1.push(currentPlayer);
+            }
+        }
+        
+        scan.close();
+        
+        return holder1;
+	}
 }
