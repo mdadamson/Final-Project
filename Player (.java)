@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Player {
@@ -53,9 +52,8 @@ public class Player {
     public int getJersey() {
         return jersey;
     }
-
-
-    public int compareTo(Player o){
+    
+       public int compareTo(Player o){
         return Comparator.comparing(Player::firstName)
                 .thenComparing(Player::lastName)
                 .thenComparingInt(Player::getAge)
@@ -67,22 +65,4 @@ public class Player {
                 .thenComparingInt(Player::getAge)
                 .compare(this, o)) + 1;
     }
-
-
-    public String toString() {
-        String description = "";
-        description += "Name: " + name + "\n";
-        description += "Age: " + age + "\n";
-        description += "Team: " + team + "\n";
-        description += "College: " + college + "\n";
-        description += "Weight " + weight + "\n";
-        description += "Height: " + height + "\n";
-        description += "Position: " + position + "\n";
-        description += "Role: " + role + "\n";
-        description += "Player No. : " + jersey + "\n";
-
-        return description;
-    }
-
-
 }
