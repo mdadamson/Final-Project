@@ -1,12 +1,11 @@
 
 public class Offensive_Player extends Player{
 	private String name, team, college, position, role;
-    protected int  age, jersey, ydsRush, ydsRec, ydsPass;
+    protected int  age, jersey, ydsRushRec, ydsPass, touchdowns;
     private double weight, height;
-    private String splitName[];
 
 	public Offensive_Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
-            String part, int playNo, int rushyds, int recyds, int passyds) {
+            String part, int playNo, int TDs, int rushrecyds, int passyds) {
 		super(nick, group, uni, old, mass, tall, pos, part, playNo);
 		
 		name = nick;
@@ -18,20 +17,38 @@ public class Offensive_Player extends Player{
         position = pos;
         role = part;
         jersey = playNo;
-        ydsRush = rushyds;
-        ydsRec = recyds;
+        touchdowns = TDs;
+        ydsRushRec = rushrecyds;
         ydsPass = passyds;
 	}
 	
-	public int getRushYards() {
-		return ydsRush;
-	}
-
-	public int getRecYards() {
-		return ydsRec;
+	public int getRushRecYards() {
+		return ydsRushRec;
 	}
 	
 	public int getPassYards() {
 		return ydsPass;
 	}
+	
+	public int getTDs() {
+		return touchdowns;
+	}
+	
+	public String to_String() {
+        String description = "";
+        description += "Name: " + name + "\n";
+        description += "Age: " + age + "\n";
+        description += "Team: " + team + "\n";
+        description += "College: " + college + "\n";
+        description += "Weight " + weight + "\n";
+        description += "Height: " + height + "\n";
+        description += "Position: " + position + "\n";
+        description += "Role: " + role + "\n";
+        description += "Player No. : " + jersey + "\n";
+        description += "Touchdowns: " + touchdowns + "\n";
+        description += "Rushing/Recieving Yards: " + ydsRushRec + "\n";
+        description += "Passing Yards: " + ydsPass + "\n";
+
+        return description;
+    }
 }
