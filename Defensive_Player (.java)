@@ -1,12 +1,11 @@
 
 public class Defensive_Player extends Player{
 	private String name, team, college, position, role;
-    protected int  age, jersey, Tackles, picks;
+    protected int  age, jersey, ydsRush, ydsRec, ydsPass, touchdowns, tackles, interceptions, returnYds;
     private double weight, height;
-    private String splitName[];
 
 	public Defensive_Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
-            String part, int playNo, int tackles, int interceptions) {
+            String part, int playNo, int Tackles, int picks) {
 		super(nick, group, uni, old, mass, tall, pos, part, playNo);
 		
 		name = nick;
@@ -18,16 +17,32 @@ public class Defensive_Player extends Player{
         position = pos;
         role = part;
         jersey = playNo;
-        Tackles = tackles;
-        picks = interceptions;
-		
+        tackles = Tackles;
+        interceptions = picks;
 	}
 	
 	public int getRecordedTackles() {
-		return Tackles;
+		return tackles;
 	}
 	
 	public int getInterceptions() {
-		return picks;
+		return interceptions;
 	}
+	
+	public String to_String() {
+        String description = "";
+        description += "Name: " + name + "\n";
+        description += "Age: " + age + "\n";
+        description += "Team: " + team + "\n";
+        description += "College: " + college + "\n";
+        description += "Weight " + weight + "\n";
+        description += "Height: " + height + "\n";
+        description += "Position: " + position + "\n";
+        description += "Role: " + role + "\n";
+        description += "Player No. : " + jersey + "\n";
+        description += "Tackles: " + tackles + "\n";
+		description += "Interceptions: " + interceptions + "\n";
+
+        return description;
+    }
 }
