@@ -1,12 +1,11 @@
 
 public class SpecialTeams_Player extends Player{
 	private String name, team, college, position, role;
-    protected int  age, jersey, points;
+    protected int  age, jersey, fGoals;
     private double weight, height;
-    private String splitName[];
 	
 	public SpecialTeams_Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
-            String part, int playNo, int ptsScored) {
+            String part, int playNo, int fieldGoals) {
 		super(nick, group, uni, old, mass, tall, pos, part, playNo);
 		
 		name = nick;
@@ -18,10 +17,26 @@ public class SpecialTeams_Player extends Player{
         position = pos;
         role = part;
         jersey = playNo;
-        points = ptsScored;
+        fGoals = fieldGoals;
 	}
 	
-	public int getPtsScored() {
-		return points;
+	public int getfGoals() {
+		return fGoals;
 	}
+	
+	public String to_String() {
+        String description = "";
+        description += "Name: " + name + "\n";
+        description += "Age: " + age + "\n";
+        description += "Team: " + team + "\n";
+        description += "College: " + college + "\n";
+        description += "Weight " + weight + "\n";
+        description += "Height: " + height + "\n";
+        description += "Position: " + position + "\n";
+        description += "Role: " + role + "\n";
+        description += "Player No. : " + jersey + "\n";
+        description += "Field Goals: " + fGoals + "\n";
+
+        return description;
+    }
 }
