@@ -1,3 +1,10 @@
+/*
+ * Group # 3
+ * Group Members: Michael Adamson, Jeremy Hunat, Henok Asrat, Omer Srour
+ * Class: 		  CSIT 211
+ * Description:   Final Project - Seattle Seahawks Player Information
+ */
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -33,14 +40,14 @@ class Offensive_Panel extends JPanel{
     JLabel background = new JLabel(new ImageIcon("./src/seahawks2.jpg"));
     Decision a = new Decision();
     LinkedList<Offensive_Player> offTeam = a.getOffList();
-    Font myFont2 = new Font("Times", Font.BOLD, 30);
+    Font myFont = new Font("Times", Font.BOLD, 16);
+    Font myFont2 = new Font("Times", Font.BOLD, 22);
     JLabel offense = new JLabel("OFFENSE", JLabel.CENTER);
 
     public Offensive_Panel() throws IOException{
     	Border newBorder = BorderFactory.createLineBorder(new Color(0, 0, 0, 0), 35);
     	setLayout(new BorderLayout());
     	setVisible(true);
-    	Font myFont = new Font("Times", Font.BOLD, 16);
     	
         int i = 0;
 
