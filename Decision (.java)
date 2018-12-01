@@ -1,3 +1,9 @@
+/*
+ * Group Members: Michael Adamson, Jeremy Hunat, Henok Asrat, Omer Srour
+ * Class: 		  CSIT 211
+ * Description:   Final Project - Seattle Seahawks Player Information
+ */
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,14 +34,16 @@ public class Decision {
 	        Frame.pack();
 	        Frame.setVisible(true);
 	        Frame.setResizable(false);
-    }
+        }
 }
 
 @SuppressWarnings("serial")
 class Decision_Panel extends JPanel{
-	JButton btno, btnd, btns, reset;
+	JButton btno, btnd, btns;
     JLabel jlbl, jlbl2;
     JLabel background = new JLabel(new ImageIcon("./src/seattle_seahawks_bg12x10.jpg"));
+    Font myFont = new Font("Times", Font.BOLD, 18);
+    Font myFont2 = new Font("Times", Font.BOLD, 16);
 
     public Decision_Panel() {
         setLayout(new BorderLayout());
@@ -43,7 +51,7 @@ class Decision_Panel extends JPanel{
         setSize(640, 512);
         
         JPanel btmTOPPanel = new JPanel(new GridLayout(3, 1));
-        JPanel btmBTMPanel = new JPanel(new GridLayout(2, 3, 20, 20));
+        JPanel btmBTMPanel = new JPanel(new GridLayout(2, 3, 20, 0));
         btmTOPPanel.setBackground(new Color(0, 0, 0, 0));
         btmBTMPanel.setBackground(new Color(0, 0, 0, 0));
 
@@ -55,11 +63,12 @@ class Decision_Panel extends JPanel{
         topPanel.setBackground(new Color(0, 0, 0, 0));
 
         btno = new JButton("Offense");
+        btno.setFont(myFont2);
         btnd = new JButton("Defense");
+        btnd.setFont(myFont2);
         btns = new JButton("Special");
-        reset = new JButton("Reset");
+        btns.setFont(myFont2);
         
-        Font myFont = new Font("Times", Font.BOLD, 18);
 
         jlbl = new JLabel("Welcome to the Seattle Seahawks Player Information Portal.");
         jlbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -75,9 +84,8 @@ class Decision_Panel extends JPanel{
         btno.addActionListener(listen);
         btnd.addActionListener(listen);
         btns.addActionListener(listen);
-        reset.addActionListener(listen);
         
-        Border newBorder = BorderFactory.createLineBorder(new Color(0, 0, 0, 0), 15);
+        Border newBorder = BorderFactory.createLineBorder(new Color(0, 0, 0, 0), 25);
         
         background.setLayout(new BorderLayout());
     	background.setVisible(true);
@@ -95,12 +103,12 @@ class Decision_Panel extends JPanel{
         btmTOPPanel.add(jlbl);
         btmTOPPanel.add(jlbl2);
 
+        btmBTMPanel.add(new JLabel(" "));
+        btmBTMPanel.add(new JLabel(" "));
+        btmBTMPanel.add(new JLabel(" "));
         btmBTMPanel.add(btno);
         btmBTMPanel.add(btnd);
         btmBTMPanel.add(btns);
-        btmBTMPanel.add(new JLabel(" "));
-        btmBTMPanel.add(reset);
-        btmBTMPanel.add(new JLabel(" "));
     }
     
     public class buttonlistener implements ActionListener {
@@ -123,12 +131,8 @@ class Decision_Panel extends JPanel{
 	                Offense.oFrame.dispose();
 	            	Defense.dFrame.dispose();
                 }
-                if (source == reset) {
-                	Offense.oFrame.dispose();
-                	Defense.dFrame.dispose();
-                	Specials.sFrame.dispose();
-                }
             } catch (IOException e) { e.printStackTrace(); }
         }
     }
 }
+
