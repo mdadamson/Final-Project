@@ -1,3 +1,9 @@
+/*
+ * Group # 3
+ * Group Members: Michael Adamson, Jeremy Hunat, Henok Asrat, Omer Srour
+ * Class: 		  CSIT 211
+ * Description:   Final Project - Seattle Seahawks Player Information
+ */
 
 public class Defensive_Player extends Player{
 	private String name, team, college, position, role;
@@ -41,7 +47,7 @@ public class Defensive_Player extends Player{
         description += "Role: " + role + "\n";
         description += "Player No. : " + jersey + "\n";
         description += "Tackles: " + tackles + "\n";
-		description += "Interceptions: " + interceptions + "\n";
+		description += "Interceptions: " + interceptions;
 
         return description;
     }
