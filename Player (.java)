@@ -1,7 +1,14 @@
+/*
+ * Group # 3
+ * Group Members: Michael Adamson, Jeremy Hunat, Henok Asrat, Omer Srour
+ * Class: 		  CSIT 211
+ * Description:   Final Project - Seattle Seahawks Player Information
+ */
+
 import java.util.*;
 
 public class Player {
-    private String name, team, college, position, role;
+    private String name, position, role;
     protected int  age, jersey;
     private double weight, height;
     private String splitName[];
@@ -9,8 +16,6 @@ public class Player {
     public Player(String nick, String group, String uni, int old, double mass, double tall, String pos,
                   String part, int playNo) {
         name = nick;
-        team = group;
-        college = uni;
         age = old;
         weight = mass;
         height = tall;
